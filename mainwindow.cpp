@@ -18,8 +18,10 @@ bool MainWindow::isExistsFilePathInListView(QString *path)
       QList<QListWidgetItem*> listPath = ui->listWidget->findItems(*path,Qt::MatchCaseSensitive);
       if(listPath.size()>0)
       {
+          QMessageBox::information(0,"Info", "This file already been loaded");
           return true;
       }
+
       return false;
 }
 
@@ -29,17 +31,14 @@ void MainWindow::on_pushButton_clicked()
     QString pathFile = QFileDialog::getOpenFileName
            (0,QObject::tr("Select file cookies"), QDir::homePath() , QObject::tr("Текстовый файл (*.txt)"));
 
-    if(!isExistsFilePathInListView(&pathFile))
+    FileLoader fileLoader(pathFile);
+    CookieParser cookieParser(fileLoader.getFileData());
+    if((!isExistsFilePathInListView(&pathFile)) && (cookieParser.isItCanBeParsed(fileLoader.getFileData())))
     {
-        FileLoader fileLoader(pathFile);
-        CookieParser cookieParser(fileLoader.getFileData());
         updateListView(&pathFile);
         updateLabelParsedCookies(cookieParser.getParsedCookies());
         updateTreeWidget(cookieParser.getTreeCookies());
-    }
-    else
-    {
-        QMessageBox::information(0,"Info", "This file already been loaded");
+
     }
 }
 
