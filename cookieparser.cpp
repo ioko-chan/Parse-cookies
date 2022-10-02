@@ -1,15 +1,15 @@
 #include "cookieparser.h"
 
-CookieParser::CookieParser()
+CookieParser::CookieParser(const QString &cookiesTxt)
 {
-
+    parseCookies(cookiesTxt);
+    buildTreeCookies();
 }
 
-void CookieParser::parseCookies(const QString &pathCookies,const QString &cookiesTxt)
+void CookieParser::parseCookies(const QString &cookiesTxt)
 {
     QJsonDocument doc =  QJsonDocument::fromJson(cookiesTxt.toUtf8());
     QJsonArray jsonArray = doc.array();
-    QList<Cookie> listCookie;
 
     foreach (const QJsonValue & value, jsonArray)
     {
@@ -39,11 +39,10 @@ void CookieParser::parseCookies(const QString &pathCookies,const QString &cookie
             QString value = obj["value"].toString();
             cookie.setValue(value);
 
-            listCookie.append(cookie);
+            cookies.append(cookie);
+            setParsedCookies(getParsedCookies()+1);
         }
     }
-    cookies.insert(pathCookies, listCookie);
-    listCookie.clear();
 }
 
  bool CookieParser::isItCanBeParsed(const QString &cookiesTxt)
@@ -56,4 +55,42 @@ void CookieParser::parseCookies(const QString &pathCookies,const QString &cookie
           return false;
      }
      return true;
+ }
+
+ int CookieParser::getParsedCookies() const
+ {
+     return parsedCookies;
+ }
+
+ void CookieParser::setParsedCookies(int newParsedCookies)
+ {
+     parsedCookies = newParsedCookies;
+ }
+
+ void CookieParser::buildTreeCookies()
+ {
+     foreach(const Cookie &cookie, getCookies())
+     {
+         treeCookies[cookie.getDomain()].append(cookie);
+     }
+ }
+
+ const QList<Cookie> &CookieParser::getCookies() const
+ {
+     return cookies;
+ }
+
+ void CookieParser::setCookies(const QList<Cookie> &newCookies)
+ {
+     cookies = newCookies;
+ }
+
+ const QMap<QString, QList<Cookie> > &CookieParser::getTreeCookies() const
+ {
+     return treeCookies;
+ }
+
+ void CookieParser::setTreeCookies(const QMap<QString, QList<Cookie> > &newTreeCookies)
+ {
+     treeCookies = newTreeCookies;
  }

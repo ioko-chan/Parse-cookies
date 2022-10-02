@@ -3,8 +3,9 @@
 
 #include "uploadfile.h"
 #include "cookieparser.h"
-
 #include <QMainWindow>
+#include "QFileDialog"
+#include "QMessageBox"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,14 +18,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    bool isExistsFilePathInListView(QString *path);
     void updateListView(QString *path);
+    void updateTreeWidget(QMap<QString, QList<Cookie>> treeCookies);
+    void updateLabelParsedCookies(int cookies);
 
 private slots:
     void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
-    FilesLoader *filesLoader;
-    CookieParser *cookieParser;
 };
 #endif // MAINWINDOW_H

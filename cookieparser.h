@@ -1,5 +1,6 @@
 #ifndef COOKIEPARSER_H
 #define COOKIEPARSER_H
+
 #include "cookie.h"
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -11,12 +12,25 @@
 class CookieParser
 {
 public:
-    CookieParser();
-    void parseCookies(const QString &pathCookies,const QString &cookiesTxt);
+    CookieParser(const QString &cookiesTxt);
+
+    void parseCookies(const QString &cookiesTxt);
     bool isItCanBeParsed(const QString &cookiesTxt);
 
+    int getParsedCookies() const;
+    void setParsedCookies(int newParsedCookies);
+
+    const QList<Cookie> &getCookies() const;
+    void setCookies(const QList<Cookie> &newCookies);
+
+    const QMap<QString, QList<Cookie> > &getTreeCookies() const;
+    void setTreeCookies(const QMap<QString, QList<Cookie> > &newTreeCookies);
+    void buildTreeCookies();
+
 private:
-    QMap< QString,QList<Cookie>> cookies;
+    QList<Cookie> cookies;
+    QMap<QString,QList<Cookie>> treeCookies;
+    int parsedCookies = 0;
 };
 
 #endif // COOKIEPARSER_H

@@ -3,25 +3,28 @@
 
 #include <QString>
 #include <QVector>
+#include <QFile>
+#include <QMessageBox>
 
-
-class FilesLoader
+class FileLoader
 {
 public:
-    FilesLoader();
-    ~FilesLoader();
+    FileLoader(const QString &path);
+
     QVector<QString> getFiles() const;
-    int loadFile(const QString &path);
     void setFiles(QVector<QString> newFiles);
-    void addNewPath(const QString &path);
-    void readFile(const QString &path);
-    bool isExistsIntoList(const QString &path);
-    QString getCurrentFile() const;
-    void setCurrentFile(const QString newCurrentFile);
+
+    const QString &getFileData() const;
+    void setFileData(const QString &newFileData);
+
+    const QString &getFilePath() const;
+    void setFilePath(const QString &newFilesPath);
+
+    void readFile();
 
 private:
-    QVector<QString> filesPath;
-    QString currentFile;
+    QString filePath;
+    QString fileData;
 };
 
 #endif // UPLOADFILE_H
