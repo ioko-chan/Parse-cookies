@@ -21,8 +21,10 @@ set(PROJECT_SOURCES
         mainwindow.ui
         uploadfile.h
         uploadfile.cpp
-        cookies.cpp
-        cookies.h
+        cookie.cpp
+        cookie.h
+        cookieParser.cpp
+        cookieParser.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

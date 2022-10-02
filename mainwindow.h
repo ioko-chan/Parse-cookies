@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "uploadfile.h"
+#include "cookieparser.h"
 
 #include <QMainWindow>
 
@@ -16,7 +17,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void setFilesLoader(FilesLoader *newFilesLoader);
     void updateListView(QString *path);
 
 private slots:
@@ -25,5 +25,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     FilesLoader *filesLoader;
+    CookieParser *cookieParser;
 };
 #endif // MAINWINDOW_H

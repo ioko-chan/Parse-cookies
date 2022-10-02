@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     filesLoader = new FilesLoader();
+    cookieParser = new CookieParser();
 }
 
 MainWindow::~MainWindow()
@@ -20,25 +21,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     QString pathFile = QFileDialog::getOpenFileName
-           (0,QObject::tr("Select file cookies"), QDir::homePath() , QObject::tr("Текстовый файл (*.txt)"));
+           (0,QObject::tr("Select file cookies"), QDir::homePath() , QObject::tr("Текстовый файл (*.txt; *.json)"));
 
-    if(!filesLoader->isExistsIntoList(pathFile))
+    if(filesLoader->loadFile(pathFile) && cookieParser->isItCanBeParsed(filesLoader->getCurrentFile()))
     {
-         filesLoader->addNewPath(pathFile);
+         cookieParser->parseCookies(pathFile,filesLoader->getCurrentFile());
          updateListView(&pathFile);
-         filesLoader->clearCurrentFile();
-         filesLoader->readFile(pathFile);
     }
-    else
-    {
-         QMessageBox::information(0, "Info","This file has already been uploaded. \nSelect another file");
-    }
-
-}
-
-void MainWindow::setFilesLoader(FilesLoader *newFilesLoader)
-{
-    filesLoader = newFilesLoader;
 }
 
 void MainWindow::updateListView(QString *path)

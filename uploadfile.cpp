@@ -3,68 +3,66 @@
 #include <QFile>
 #include <QMessageBox>
 
+#define FILE_LOADED_SUCCESSFULLY 1
+#define FILE_HAS_ALREADY_BEEN_LOADED 0
 
 FilesLoader::FilesLoader()
 {
-    filesPath = new QVector<QString>();
 }
 
-QVector<QString> *FilesLoader::getFiles() const
+int FilesLoader::loadFile(const QString &path)
+{
+    if(!isExistsIntoList(path))
+    {
+        addNewPath(path);
+        readFile(path);
+        return FILE_LOADED_SUCCESSFULLY;
+    }
+
+    QMessageBox::information(0, "Info","This file has already been uploaded. \nSelect another file");
+    return FILE_HAS_ALREADY_BEEN_LOADED;
+}
+
+QVector<QString> FilesLoader::getFiles() const
 {
     return filesPath;
 }
 
-void FilesLoader::setFiles(QVector<QString> *newFiles)
+void FilesLoader::setFiles(QVector<QString> newFiles)
 {
     filesPath = newFiles;
 }
 
-
- QString *FilesLoader::getFile(int count) const
+ void FilesLoader::addNewPath(const QString &path)
  {
-    //сделать проверку существует ли вообще путь под таким индексом
-    // и если существует, вернуть путь, иначе что-нибудь кинуть
- }
-
- void FilesLoader::addNewPath( QString &path)
- {
-     filesPath->append(path);
-     qInfo()<< *filesPath;
+     filesPath.append(path);
  }
 
 
- void FilesLoader::clearCurrentFile()
- {
-     if(currentFile!=nullptr)
-     {
-        currentFile->clear();
-     }
- }
-
-bool FilesLoader::isExistsIntoList(QString &path)
+bool FilesLoader::isExistsIntoList(const QString &path)
 {
     QVector<QString>::iterator it = std::find_if
-            (filesPath->begin(), filesPath->end(), [path](const QString& s){
+            (filesPath.begin(), filesPath.end(), [path](const QString& s){
                 return s==path;
             });
-    if(it!= filesPath->end()){
+    if(it!= filesPath.end()){
         return true;
     }
     return false;
 
 }
 
-QString *FilesLoader::getCurrentFile() const
+QString FilesLoader::getCurrentFile() const
 {
     return currentFile;
 }
 
-void FilesLoader::setCurrentFile(QString *newCurrentFile)
+void FilesLoader::setCurrentFile(const QString newCurrentFile)
 {
     currentFile = newCurrentFile;
 }
 
- void FilesLoader::readFile(QString &path)
+ void FilesLoader::readFile(const QString &path)
  {
      QFile file(path);
      if(!file.exists()) {
@@ -72,19 +70,18 @@ void FilesLoader::setCurrentFile(QString *newCurrentFile)
         return;
      }
 
-    if(!file.open(QIODevice::ReadOnly)) {
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
          QMessageBox::information(0, "Error", file.errorString());
      }
 
      QTextStream stream(&file);
      QString data = stream.readAll();
-     setCurrentFile(&data);
-     qInfo() << *currentFile;
+     setCurrentFile(data);
      file.close();
  }
 
 FilesLoader::~FilesLoader()
  {
-     clearCurrentFile();
-     filesPath->clear();
+    currentFile.clear();
+    filesPath.clear();
  }
