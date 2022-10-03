@@ -25,6 +25,9 @@ set(PROJECT_SOURCES
         cookie.h
         cookieParser.cpp
         cookieParser.h
+        themeloader.h
+        themeloader.cpp
+        resources.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

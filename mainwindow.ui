@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,6 +12,18 @@
     <width>612</width>
     <height>422</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>612</width>
+    <height>422</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>612</width>
+    <height>422</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Parse cookies</string>
@@ -28,6 +43,15 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QPushButton" name="pushButton">
+         <property name="maximumSize">
+          <size>
+           <width>256</width>
+           <height>42</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
           <string>Select file</string>
          </property>
@@ -45,7 +69,7 @@
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>0</string>
+            <string/>
            </property>
           </widget>
          </item>
