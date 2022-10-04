@@ -9,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     treeCookieMap = new   QMap<QString,QMap<QString, QList<Cookie>>>;
     viewPath = new QString();
     parsedCookiesCount = new QMap<QString,int>();
-    connect(ui->listWidget,SIGNAL(itemClicked()), this , SLOT(on_listWidget_itemClicked()));
+    settings = new SettingsWindow();
+    connect(settings , &SettingsWindow::mainWindow, this , &MainWindow::show);
 }
 
 MainWindow::~MainWindow()
@@ -111,5 +112,12 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
     ui->treeWidget->clear();
     updateTreeWidget(path,treeCookieMap->value(path));
     updateLabelParsedCookies(parsedCookiesCount->value(path));
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    hide();
+    settings->show();
 }
 

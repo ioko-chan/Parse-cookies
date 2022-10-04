@@ -3,6 +3,7 @@
 
 #include "uploadfile.h"
 #include "cookieparser.h"
+#include "settingswindow.h"
 #include <QMainWindow>
 #include <QTreeWidget>
 #include <QFileDialog>
@@ -31,11 +32,13 @@ public:
 private slots:
     void on_pushButton_clicked();
     void on_listWidget_itemClicked(QListWidgetItem *item);
+    void on_pushButton_2_clicked();
 
 private:
     Ui::MainWindow *ui;
     QMap<QString,QMap<QString, QList<Cookie>>> *treeCookieMap;
     QMap<QString,int> *parsedCookiesCount;
     QString *viewPath;
+    SettingsWindow *settings;
 };
 #endif // MAINWINDOW_H

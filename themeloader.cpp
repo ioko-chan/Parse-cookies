@@ -8,7 +8,7 @@ ThemeLoader::ThemeLoader()
 
 void ThemeLoader::loadStartTheme()
 {
-    QFile themeFile(":/color_theme/theme.txt");
+    QFile themeFile(pathCurrentTheme);
     themeFile.open(QFile::ReadOnly);
     if(themeFile.isOpen())
     {
@@ -21,7 +21,6 @@ void ThemeLoader::loadStartTheme()
         qDebug() << "Не может открыть файл начальной темы";
         return;
     }
-    qDebug() << currentTheme;
     loadTheme(currentTheme);
 }
 
@@ -29,7 +28,7 @@ void ThemeLoader::loadTheme(QString newTheme)
 {
     QString path = themesPath[newTheme];
     QFile qssFile(path);
-       qssFile.open(QFile::ReadOnly); // Открыть только для чтения
+       qssFile.open(QFile::ReadOnly);
        if(qssFile.isOpen())
        {
            QString qss = QLatin1String(qssFile.readAll());
@@ -41,4 +40,24 @@ void ThemeLoader::loadTheme(QString newTheme)
            qDebug() << "Не может открыть файл стиля";
            return;
        }
+
+       QFile themeFile(pathCurrentTheme);
+       themeFile.open(QFile::ReadWrite);
+       if(themeFile.isOpen())
+       {
+           QTextStream stream(&themeFile);
+           stream << newTheme ;
+           themeFile.close();
+       }
+
+}
+
+const QString &ThemeLoader::getCurrentTheme() const
+{
+    return currentTheme;
+}
+
+void ThemeLoader::setCurrentTheme(const QString &newCurrentTheme)
+{
+    currentTheme = newCurrentTheme;
 }

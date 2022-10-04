@@ -19,6 +19,9 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        settingswindow.h
+        settingswindow.cpp
+        settingswindow.ui
         uploadfile.h
         uploadfile.cpp
         cookie.cpp
