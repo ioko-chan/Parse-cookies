@@ -3,7 +3,4 @@
         <file>style.qss</file>
         <file>style_black.qss</file>
     </qresource>
-    <qresource prefix="/color_theme">
-        <file>theme.txt</file>
-    </qresource>
 </RCC>

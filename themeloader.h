@@ -14,12 +14,13 @@ public:
     ThemeLoader();
     void loadStartTheme();
     void loadTheme(QString newTheme);
+    void wtiteThemeInFile();
     const QString &getCurrentTheme() const;
     void setCurrentTheme(const QString &newCurrentTheme);
 
 private:
     QString currentTheme;
-    QString pathCurrentTheme = ":/color_theme/theme.txt";
+    QString pathCurrentTheme = "theme.txt";
     QMap<QString,QString> themesPath;
 
 };

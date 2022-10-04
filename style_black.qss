@@ -1,14 +1,14 @@
 
 .QWidget {
-   background-color: beige;
+   background-color: #2F4F4F;
 }
 
 QToolBar {
-    background-color: beige;
+    background-color: #2F4F4F;
 }
 
 QDialog, QFileDialog {
-    background-color: beige;
+    background-color: #2F4F4F;
 }
 
 QTabWidget::pane {
@@ -20,7 +20,7 @@ QTabWidget::tab-bar {
 }
 
 QTabBar, QTabWidget {
-    background-color: beige;
+    background-color: #2F4F4F;
 }
 QTabBar::tab {
      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
@@ -68,9 +68,9 @@ QHeaderView::section {
  }
 
 QPushButton {
-    background-color: palegoldenrod;
+    background-color: #808080;
     border-width: 2px;
-    border-color: darkkhaki;
+    border-color: #696969;
     border-style: solid;
     border-radius: 5;
     padding: 3px;
@@ -79,14 +79,14 @@ QPushButton {
 }
 
 QPushButton:hover {
-   background-color: khaki;
+   background-color: #4f4f4f;
 }
 
 
 QPushButton:pressed {
     padding-left: 5px;
     padding-top: 5px;
-    background-color: #d0d67c;
+    background-color: #4f4f4f;
 }
 
 QLabel, QAbstractButton {
@@ -95,7 +95,7 @@ QLabel, QAbstractButton {
 
 
 .mandatory {
-    color: brown;
+    color: #2F4F4F;
 }
 
 
@@ -111,7 +111,7 @@ QStatusBar::item {
 }
 
 QStackedWidget, QComboBox, QLineEdit, QSpinBox, QTextEdit, QListView, QWebView, QTreeView, QHeaderView {
-    background-color: cornsilk;
+    background-color: #A9A9A9;
     selection-color: #0a214c;
     selection-background-color: #C19A6B;
 }
@@ -121,7 +121,7 @@ QListView {
 }
 
 QListView::item:hover {
-    background-color: wheat;
+    background-color: #A9A9A9;
 }
 
 
@@ -129,7 +129,7 @@ QLineEdit, QFrame {
     border-width: 1px;
     padding: 1px;
     border-style: solid;
-    border-color: darkkhaki;
+    border-color: #808080;
     border-radius: 5px;
 }
 

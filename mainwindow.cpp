@@ -10,7 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     viewPath = new QString();
     parsedCookiesCount = new QMap<QString,int>();
     settings = new SettingsWindow();
-    connect(settings , &SettingsWindow::mainWindow, this , &MainWindow::show);
+    settings->setModal(true);
+    //connect(settings , &SettingsWindow::mainWindow, this , &MainWindow::show);
 }
 
 MainWindow::~MainWindow()
@@ -117,7 +118,7 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    hide();
+    //hide();
     settings->show();
 }
 

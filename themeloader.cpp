@@ -8,24 +8,23 @@ ThemeLoader::ThemeLoader()
 
 void ThemeLoader::loadStartTheme()
 {
-    QFile themeFile(pathCurrentTheme);
-    themeFile.open(QFile::ReadOnly);
-    if(themeFile.isOpen())
+    QFile themeFile("theme.txt");
+    if(!themeFile.open(QIODevice::ReadWrite) || themeFile.readAll() == "")
     {
-        QTextStream stream(&themeFile);
-        currentTheme = stream.readLine();
-        themeFile.close();
+        themeFile.open(QIODevice::ReadWrite | QIODevice::Text);
+        themeFile.seek(0);
+        themeFile.write("Light");
     }
-    else
-    {
-        qDebug() << "Не может открыть файл начальной темы";
-        return;
-    }
+    themeFile.seek(0);
+    currentTheme = themeFile.readAll();
+    qDebug() << currentTheme;
+    themeFile.close();
     loadTheme(currentTheme);
 }
 
 void ThemeLoader::loadTheme(QString newTheme)
 {
+    currentTheme = newTheme;
     QString path = themesPath[newTheme];
     QFile qssFile(path);
        qssFile.open(QFile::ReadOnly);
@@ -40,17 +39,25 @@ void ThemeLoader::loadTheme(QString newTheme)
            qDebug() << "Не может открыть файл стиля";
            return;
        }
+}
 
-       QFile themeFile(pathCurrentTheme);
-       themeFile.open(QFile::ReadWrite);
-       if(themeFile.isOpen())
-       {
-           QTextStream stream(&themeFile);
-           stream << newTheme ;
-           themeFile.close();
-       }
+void ThemeLoader::wtiteThemeInFile()
+{
+    QFile themeFile("theme.txt");
+    if(themeFile.open(QIODevice::WriteOnly))
+    {
+        QTextStream stream(&themeFile);
+        stream << currentTheme ;
+        themeFile.close();
+    }
+    else
+    {
+        qDebug()<<"Ooops...";
+    }
 
 }
+
+
 
 const QString &ThemeLoader::getCurrentTheme() const
 {
